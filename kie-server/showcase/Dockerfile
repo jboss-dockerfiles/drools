@@ -7,7 +7,7 @@
 #################################################################################
 
 ####### BASE ############
-FROM jboss/kie-server:6.2.0
+FROM jboss/kie-server:6.2.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Roger Martinez" "romartin@redhat.com"
