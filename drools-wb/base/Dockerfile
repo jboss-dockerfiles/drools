@@ -3,7 +3,7 @@
 #
 # The web application binaries are downloaded from JBoss Nexus Repository.
 #
-# The Docker image generated name/tag is "jboss/drools-workbench:6.2.0"
+# The Docker image generated name/tag is "jboss/drools-workbench:6.2.0.Final"
 ##########################################################################
 
 ####### BASE ############

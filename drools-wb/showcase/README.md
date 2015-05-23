@@ -6,23 +6,24 @@ JBoss Drools Workbench Showcase [Docker](http://docker.io/) image.
 Table of contents
 ------------------
 
-* **[Introduction](#introduction)**
-* **[Usage](#usage)**
-* **[GIT internal repository access](#git-internal-repository.access)**
-* **[Users and roles](#users-and-roles)**
-* **[Logging](#logging)**
-* **[Extending this image](#extending-this-image)**
-* **[Experimenting](#experimenting)**
-* **[Notes](#notes)**
+* Introduction
+* Usage
+* GIT internal repository access
+* Users and roles
+* Logging
+* Extending this image
+* Experimenting
+* Notes
 
 Introduction
 ------------
 
-The image contains:               
+The image contains:     
+          
 * JBoss Wildfly 8.1.0.Final             
 * Drools Workbench 6.2.0.Final            
 
-This image inherits from <code>jboss/drools-workbench:6.2.0</code> and provides some additional configurations:     
+This image inherits from `jboss/drools-workbench:6.2.0.Final` and provides some additional configurations:     
 
 * Some KIE examples            
 * Default users and roles                                                       
@@ -35,15 +36,15 @@ Usage
 
 To run a container:
     
-    docker run -P -d --name drools-workbench jboss/drools-workbench-showcase:6.2.0
+    docker run -P -d --name drools-workbench jboss/drools-workbench-showcase:6.2.0.Final
 
-Once container and web applications started, you can navigate to it using one of the users described in section [Users and roles](#users-and-roles).              
+Once container and web applications started, you can navigate to it using one of the users described in section `Users and roles`.              
 
 To find out the application URL:               
 
 **Using local host binding port**
 
-If you have run the container using <code>-P</code> flag in the <code>docker</code> command, the port <code>8080</code> has been bind to an available port on your host.                 
+If you have run the container using `-P` flag in the `docker` command, the port `8080` has been bind to an available port on your host.                 
 
 So you have to discover your host's bind port, that can be done by running the command:          
 
@@ -51,16 +52,16 @@ So you have to discover your host's bind port, that can be done by running the c
 
 Example of the above command response:                   
 
-    CONTAINER ID        IMAGE                        COMMAND                CREATED              STATUS              PORTS                                              NAMES
-    2a55fbe771c0        jboss/drools-workbench-showcase:6.2.0   ./standalone.sh -b 0   About a minute ago   Up About a minute   0.0.0.0:49159->8080/tcp, 0.0.0.0:49160->9990/tcp   drools-workbench-showcase      
+    CONTAINER ID        IMAGE                                         COMMAND                CREATED              STATUS              PORTS                                              NAMES
+    2a55fbe771c0        jboss/drools-workbench-showcase:6.2.0.Final   ./standalone.sh -b 0   About a minute ago   Up About a minute   0.0.0.0:49159->8080/tcp, 0.0.0.0:49160->9990/tcp   drools-workbench-showcase      
 
-As you can see, the bind port to use for container's port <code>8080</code> is <code>49159</code>, so you can navigate to:
+As you can see, the bind port to use for container's port `8080` is `49159`, so you can navigate to:
 
     http://localhost:49159/drools-wb
 
 **No bind port for localhost**
 
-In case you run the container without using <code>-P</code> flag in the <code>docker</code> command, you can navigate to the application at:
+In case you run the container without using `-P` flag in the `docker` command, you can navigate to the application at:
 
     http://<container_ip_address>:8080/drools-wb
     
@@ -73,20 +74,20 @@ GIT internal repository access
 
 You can clone the GIT internal repositories that Drools Workbench Showcase provides, as well as any ones created by application users.             
 
-By default, the protocol used for cloning a GIT repository from the application is <code>SSH</code> at port <code>8001</code>.            
+By default, the protocol used for cloning a GIT repository from the application is `SSH` at port `8001`.            
  
     git clone ssh://admin@localhost:8001/uf-playground
     
-For cloning a repository located inside the Drools Workbench Showcase docker container, you have to discover your host's port bind for the internal port <code>8001</code>, by running the <code>ps</code> docker command:                   
+For cloning a repository located inside the Drools Workbench Showcase docker container, you have to discover your host's port bind for the internal port `8001`, by running the `ps` docker command:                   
 
     docker ps -a
 
 Example of the above command response:                   
 
-    CONTAINER ID        IMAGE                        COMMAND                CREATED              STATUS              PORTS                                                                                   NAMES
-    2a55fbe771c0        jboss/drools-workbench-showcase:6.2.0   ./standalone.sh -b 0   About a minute ago   Up About a minute   0.0.0.0:49159->8080/tcp, 0.0.0.0:49160->9990/tcp, 0.0.0.0:49161->8001/tcp   drools-workbench-showcase  
+    CONTAINER ID        IMAGE                                         COMMAND                CREATED              STATUS              PORTS                                                                                   NAMES
+    2a55fbe771c0        jboss/drools-workbench-showcase:6.2.0.Final   ./standalone.sh -b 0   About a minute ago   Up About a minute   0.0.0.0:49159->8080/tcp, 0.0.0.0:49160->9990/tcp, 0.0.0.0:49161->8001/tcp   drools-workbench-showcase  
 
-As you can see, the bind port to use for container's port <code>8001</code> is <code>49161</code>, so you can do the clone as:
+As you can see, the bind port to use for container's port `8001` is `49161`, so you can do the clone as:
 
     git clone ssh://admin@localhost:49161/uf-playground
 
@@ -97,58 +98,21 @@ Users and roles
 
 This showcase image contains default users and roles:               
 
-<table>
-    <tr>
-        <td><b>User</b></td>
-        <td><b>Password</b></td>
-        <td><b>Role</b></td>
-    </tr>
-    <tr>
-        <td>admin</td>
-        <td>admin</td>
-        <td>admin,analyst,kiemgmt</td>
-    </tr>
-    <tr>
-        <td>krisv</td>
-        <td>krisv</td>
-        <td>admin,analyst</td>
-    </tr>
-    <tr>
-        <td>john</td>
-        <td>john</td>
-        <td>analyst,Accounting,PM</td>
-    </tr>
-    <tr>
-        <td>mary</td>
-        <td>mary</td>
-        <td>analyst,HR</td>
-    </tr>
-    <tr>
-        <td>sales-rep</td>
-        <td>sales-rep</td>
-        <td>analyst,sales</td>
-    </tr>
-    <tr>
-        <td>katy</td>
-        <td>katy</td>
-        <td>analyst,HR</td>
-    </tr>
-    <tr>
-        <td>jack</td>
-        <td>jack</td>
-        <td>analyst,IT</td>
-    </tr>
-    <tr>
-        <td>salaboy</td>
-        <td>salaboy</td>
-        <td>admin,analyst,IT,HR,Accounting</td>
-    </tr>
-</table>
-
+    USER        PASSWORD    ROLE
+    *************************************************
+    admin       admin       admin,analyst,kiemgmt
+    krisv       krisv       admin,analyst
+    john        john        analyst,Accounting,PM
+    mary        mary        analyst,HR
+    sales-rep   sales-rep   analyst,sales
+    katy        katy        analyst,HR
+    jack        jack        analyst,IT
+    salaboy     salaboy     admin,analyst,IT,HR,Accounting
+    
 Logging
 -------
 
-You can see all logs generated by the <code>standalone</code> binary running:
+You can see all logs generated by the `standalone` binary running:
 
     docker logs [-f] <container_id>
     
@@ -169,7 +133,7 @@ Experimenting
 
 To spin up a shell in one of the containers try:
 
-    docker run -t -i -P jboss/drools-workbench-showcase:6.2.0 /bin/bash
+    docker run -t -i -P jboss/drools-workbench-showcase:6.2.0.Final /bin/bash
 
 You can then noodle around the container and run stuff & look at files etc.
 
@@ -181,9 +145,9 @@ You can run the Drools Workbench web application by running command:
 Notes
 -----
 
-* Drools Workbench version is <code>6.2.0.Final</code>               
-* Drools Workbench requires running JBoss Wildfly using <code>full</code> profile                        
+* Drools Workbench version is `6.2.0.Final`               
+* Drools Workbench requires running JBoss Wildfly using `full` profile                        
 * No support for clustering                
 * Use of embedded H2 database server by default               
 * No support for Wildfly domain mode, just standalone mode                    
-* The context path for Drools Workbench web application is <code>drools-wb</code>                  
+* The context path for Drools Workbench web application is `drools-wb`                  
