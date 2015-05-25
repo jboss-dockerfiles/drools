@@ -13,7 +13,7 @@
 
 CONTAINER_NAME="drools-workbench"
 IMAGE_NAME="jboss/drools-workbench"
-IMAGE_TAG="6.2.0"
+IMAGE_TAG="6.2.0.Final"
 
 function usage
 {
