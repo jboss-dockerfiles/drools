@@ -5,7 +5,7 @@
 # *****************************************************
 
 IMAGE_NAME="jboss/drools-workbench-showcase"
-IMAGE_TAG="6.2.0.Final"
+IMAGE_TAG="6.3.0.Final"
 
 # Build the container image.
 echo "Building the Docker container for $IMAGE_NAME:$IMAGE_TAG.."

@@ -1,9 +1,9 @@
-Drools KIE Server Docker image
-===============================
+Drools KIE Server showcase Docker image
+=======================================
 
-Drools KIE Server [Docker](http://docker.io/) image.
+Drools KIE Server showcase [Docker](http://docker.io/) image.
 
-More information of KIE Server available at [JBoss documentation](http://docs.jboss.org/drools/release/6.2.0.Final/drools-docs/html/ch19.html).
+More information of KIE Server available at [JBoss documentation](http://docs.jboss.org/drools/release/6.3.0.Final/drools-docs/html/ch22.html).
 
 Table of contents
 ------------------
@@ -15,62 +15,51 @@ Table of contents
 * Extending this image
 * Experimenting
 * Notes
+* Release notes
 
 Introduction
 ------------
 
 The image contains: 
               
-* JBoss Wildfly 8.1.0.Final             
-* Drools KIE Server 6.2.0.Final            
+* JBoss Wildfly 8.2.0.Final
+* JBoss Drools KIE Server 6.3.0.Final
 
-This is a **ready to run Docker image for Drools KIE Server**. Just run it and try our runtime server!
+This is a **ready to run Docker image for Drools KIE Server**. Just run it and try the Drools runtime execution server!                   
 
 Usage
 -----
 
-To run a container:
+The JBoss KIE Execution server is intended to be used as a standalone runtime execution environment managed by a KIE Drools Workbench or a jBPM Workbench application that acts as a controller.             
+
+Once having a KIE Drools Workbench or a jBPM Workbench application container running, you can run several execution server instances linked with your workbench by running:                                 
     
-    docker run -P -d --name kie-server jboss/kie-server-showcase:6.2.0.Final
+    # NOTE: Consider 'drools-wb' as the name of your Drools workbench running container.     
+    docker run -p 8180:8080 -d --name kie-server --link drools-wb:kie_wb jboss/kie-server-showcase:6.3.0.Final
 
-Once container and web applications started, you can navigate to it:              
+Note: Port `8080` is bind to port `8180` on the docker host considering that `drools-wb` container is already using it.         
+ 
+As in the above example, the use of the link alias `kie_wb` produces:               
+  
+* Use of your `drools-wb` container as the controller for the execution server.                     
+* The repository in the Maven settings, for consuming your artifacts from the `drools-wb` container, is automatically set.                    
 
-**Using local host binding port**
+So at the point the execution server container is up and running, this server instance will be automatically detected and available in your Drools/jBPM Workbench application, so you can deploy and run your application rules, etc into it.                 
 
-If you have run the container using `-P` flag in the `docker` command, the port `8080` has been bind to an available port on your host.                 
+For more information, please read the documentation at [Installing the KIE Server](http://docs.jboss.org/drools/release/6.3.0.Final/drools-docs/html/ch22.html#d0e21596).                 
 
-So you have to discover your host's bind port, that can be done by running the command:          
+Once container and web applications started, the application is available at:              
 
-    docker ps -a
-
-Example of the above command response:                   
-
-    CONTAINER ID        IMAGE                           COMMAND                CREATED              STATUS              PORTS                                              NAMES
-    2a55fbe771c0        jboss/kie-server:6.2.0.Final   ./standalone.sh -b 0   About a minute ago   Up About a minute   0.0.0.0:49159->8080/tcp, 0.0.0.0:49160->9990/tcp   kie-server      
-
-As you can see, the bind port to use for container's port `8080` is `49159`, so you can navigate to:
-
-    http://localhost:49159/kie-server
-
-**No bind port for localhost**
-
-In case you run the container without using `-P` flag in the `docker` command, you can navigate to the application at:
-
-    http://<container_ip_address>:8080/kie-server
-    
-You can discover the IP address of your running container by:
-
-    docker inspect --format '{{ .NetworkSettings.IPAddress }}' kie-server
+    http://localhost:8180/kie-server
 
 The **REST API service** is located at:               
 
-        http://<container_ip_address>:8080/kie-server/services/rest/server/
-
+    http://localhost:8180/kie-server/services/rest/server/
 
 Users and roles
 ----------------
 
-This image provides a default user `kie-server` using password `kie-server` and with the role `kie-server`.                      
+This image provides a default user `kieserver` using password `kieserver1!` and with the role `kie-server`.                      
 
 Logging
 -------
@@ -97,19 +86,26 @@ Experimenting
 
 To spin up a shell in one of the containers try:
 
-    docker run -t -i -P jboss/kie-server-showcase:6.2.0.Final /bin/bash
+    docker run -t -i -p 8080:8080 jboss/kie-server-showcase:6.3.0.Final /bin/bash
 
 You can then noodle around the container and run stuff & look at files etc.
-
-You can run the Drools KIE Server web application by running command:
-
-    /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 --server-config=standalone-full-kie-server.xml
-
 
 Notes
 -----
 
-* Drools KIE Server version is `6.2.0.Final`               
-* Drools KIE Server requires running JBoss Wildfly using `full` profile                        
+* The context path for Drools KIE Server application services is `kie-server`
+* Drools KIE Server version is `6.3.0.Final`
+* Drools KIE Server requires running JBoss Wildfly using the `full` server profile
+* In order to perform container linking with a jBPM / Drools Workbench image, the link alias must be `kie_wb`       
 * No support for clustering                
-* The context path for Drools KIE Server web application is `kie-server`                  
+* This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.                      
+* Please give us your feedback or report a issue at [Drools Setup](https://groups.google.com/forum/#!forum/drools-setup) or [Drools Usage](https://groups.google.com/forum/#!forum/drools-usage) Google groups.              
+
+Release notes
+-------------
+
+**6.3.0.Final**
+
+* See release notes for [KIE Server](https://hub.docker.com/r/jboss/kie-server/) version `6.3.0.Final`                     
+* Added support for container linking with KIE Workbench (jbpm-console) and Drools Workbench                    
+* Fixed external maven repository configuration. See [DROOLS-831](https://issues.jboss.org/browse/DROOLS-831)
