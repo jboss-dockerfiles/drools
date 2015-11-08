@@ -11,6 +11,7 @@ MAINTAINER "Roger Martinez" "romartin@redhat.com"
 ####### ENVIRONMENT ############
 # Use demo and examples by default in this showcase image (internet connection required).
 ENV KIE_DEMO true
+ENV KIE_SERVER_PROFILE standalone-full-drools
 
 ####### Drools Workbench CUSTOM CONFIGURATION ############
 ADD etc/standalone-full-drools.xml $JBOSS_HOME/standalone/configuration/standalone-full-drools.xml
@@ -28,4 +29,4 @@ USER jboss
 
 ####### RUNNING DROOLS-WB ############
 WORKDIR $JBOSS_HOME/bin/
-CMD ["./standalone.sh", "-b", "$JBOSS_BIND_ADDRESS", "-Dorg.kie.demo=$KIE_DEMO", "-Dorg.kie.example=$KIE_DEMO", "-c", "standalone-full-drools.xml"]
+CMD ["./start_drools-wb.sh"]
