@@ -10,21 +10,23 @@ Table of contents
 * Usage
 * Users and roles
 * Logging
+* GIT internal repository
 * Extending this image
 * Experimenting
 * Notes
+* Release notes
 
 Introduction
 ------------
 
 The image contains:       
         
-* JBoss Wildfly 8.1.0.Final             
-* Drools Workbench 6.2.0.Final            
+* JBoss Wildfly 8.2.0.Final
+* JBoss Drools Workbench 6.3.0.Final
 
-This image provides the Drools Workbench but it's intended to be extended so you can add  your custom configurations such as users, roles, etc.                 
+This image provides the JBoss Drools Workbench web application. It's intended to be extended so you can add your custom configurations.                                  
 
-If you don't want to extend this image and you just want to try Drools Workbench take a look at the Docker image `jboss/drools-workbench-showcase:6.2.0.Final`, it contains default users and roles and allows using the application with no custom configurations.                   
+If you don't want to extend this image and you just want to try Drools Workbench, please take a look at the `jboss/drools-workbench-showcase:6.3.0.Final` Docker image, it contains some default configurations.                       
 
 
 Usage
@@ -32,37 +34,11 @@ Usage
 
 To run a container:
     
-    docker run -P -d --name drools-workbench jboss/drools-workbench:6.2.0.Final
+    docker run -p 8080:8080 -p 8001:8001 -d --name drools-workbench jboss/drools-workbench:6.3.0.Final
 
-Once container and web applications started, you can navigate to it:              
+Once container starts, you can navigate into the Drools Workbench at:              
 
-**Using local host binding port**
-
-If you have run the container using `-P` flag in the `docker` command, the port `8080` has been bind to an available port on your host.                 
-
-So you have to discover your host's bind port, that can be done by running the command:          
-
-    docker ps -a
-
-Example of the above command response:                   
-
-    CONTAINER ID        IMAGE                                COMMAND                CREATED              STATUS              PORTS                                              NAMES
-    2a55fbe771c0        jboss/drools-workbench:6.2.0.Final   ./standalone.sh -b 0   About a minute ago   Up About a minute   0.0.0.0:49159->8080/tcp, 0.0.0.0:49160->9990/tcp   drools-workbench      
-
-As you can see, the bind port to use for container's port `8080` is `49159`, so you can navigate to:
-
-    http://localhost:49159/drools-wb
-
-**No bind port for localhost**
-
-In case you run the container without using `-P` flag in the `docker` command, you can navigate to the application at:
-
-    http://<container_ip_address>:8080/drools-wb
-    
-You can discover the IP address of your running container by:
-
-    docker inspect --format '{{ .NetworkSettings.IPAddress }}' drools-workbench
-
+    http://localhost:8080/drools-wb
 
 Users and roles
 ----------------
@@ -71,7 +47,7 @@ The application have no users or roles configured, so you cannot not access it b
 
 In order to use it, at least you have to create an application user in JBoss Wildfly with role `admin`.                  
 
-If you are looking for a Drools Workbench image that does not require to add custom configurations, try our `jboss/drools-workbench-showcase:6.2.0.Final` Docker image.                   
+If you are looking for a Drools Workbench image that does not require to add custom configurations, try our `jboss/drools-workbench-showcase:6.3.0.Final` Docker image.
 
 If you want to create your custom configuration and users, role, etc, you can take a look at section `Extending this image`    
 
@@ -95,6 +71,39 @@ The Drools Workbench web application logs can be found inside the container at p
     sudo nsenter -t $(docker inspect --format '{{ .State.Pid }}' $(docker ps -lq)) -m -u -i -n -p -w
     -bash-4.2# tail -f /opt/jboss/wildfly/standalone/log/server.log
 
+GIT internal repository
+-----------------------
+
+The workbench stores all the project artifacts in an internal GIT repository. By default, the protocol available for accessing the GIT repository is `SSH` at port `8001`.            
+
+You can clone the GIT repository by running:           
+
+    git clone ssh://admin@localhost:8001/system
+
+By default, the GIT repository is created when the application starts for first time at `$WORKING_DIR/.niogit`, considering `$WORKING_DIR` as the current directory where the application server is started.            
+
+You can specify a custom repository location by setting the following Java system property to your target file system directory:                   
+ 
+        -Dorg.uberfire.nio.git.dir=/home/youruser/some/path
+
+NOTE: This directory can be shared with your docker host and with another containers using shared volumes when running the container, if you need so.            
+
+If necessary you can make GIT repositories available from outside localhost using the following Java system property:                 
+ 
+        -org.uberfire.nio.git.ssh.host=0.0.0.0
+        
+You can set this Java system properties permanent by adding the following lines in your `standalone-full.xml` file as:                
+ 
+        <system-properties>
+          <!-- Custom repository location. -->
+          <property name="org.uberfire.nio.git.dir" value="/home/youruser/some/path"/>
+          <!-- Make GIT repositories available from outside localhost. -->
+          <property name="org.uberfire.nio.git.ssh.host" value="0.0.0.0"/>
+        </system-properties>
+    
+NOTE: Users and password for ssh access are the same that for the web application users defined at the realm files.   
+
+
 Extending this image
 --------------------
 
@@ -102,16 +111,13 @@ You can extend this image and add your custom layers in order to add custom conf
  
 In order to extend this image, your Dockerfile must inherit from:
 
-    FROM jboss/drools-workbench:6.2.0.Final
+    FROM jboss/drools-workbench:6.3.0.Final
     
 **Configuring Wildfly**
 
 * The Wildfly configuration files are located at `/opt/jboss/wildfly/standalone/configuration`                   
 * In this file you can modify all Wildfly's subsystem configurations                           
 * Drools Workbench requires running Wildfly using `full` profile, so custom modifications should be done in `standalone-full.xml` configuration file                      
-* It's recommended if there are several modifications to do, to create a copy of the configuration file, rename it and use it to start Wildfly. If you do that, your Dockerfile must run Wildfly using this configuration file, so your `CMD` command should be as:                         
-    
-        CMD ["./standalone.sh", "-b", "0.0.0.0", "--server-config=your-standalone-full.xml"]
 
 **Users and roles**
 
@@ -180,29 +186,38 @@ These are the steps to create your custom users and roles by using realm files i
           </authentication>
         </security-domain>
 
-You can find an example by looking at the Dockerfile for `jboss/drools-workbench-showcase:6.2.0.Final` image.      
+You can find an example by looking at the Dockerfile for `jboss/drools-workbench-showcase:6.3.0.Final` image.
 
 Experimenting
 -------------
 
 To spin up a shell in one of the containers try:
 
-    docker run -t -i -P jboss/drools-workbench:6.2.0.Final /bin/bash
+    docker run -p 8080:8080 -p 8001:8001 -d --name drools-workbench jboss/drools-workbench:6.3.0.Final /bin/bash
 
 You can then noodle around the container and run stuff & look at files etc.
-
-You can run the Drools Workbench web application by running command:
-
-    /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 --server-config=standalone-full.xml
-
 
 Notes
 -----
 
-* Drools Workbench version is `6.2.0.Final`               
-* Drools Workbench requires running JBoss Wildfly using `full` profile                        
+* The context path for Drools Workbench web application is `drools-wb`                  
+* Drools Workbench version is `6.3.0.Final`
+* Drools Workbench requires running JBoss Wildfly using the `full` server profile
 * No users or roles are configured by default               
+* Examples and demos disabled by default (no internet connection required at startup)               
 * No support for clustering                
 * Use of embedded H2 database server by default               
 * No support for Wildfly domain mode, just standalone mode                    
-* The context path for Drools Workbench web application is `drools-wb`                  
+* This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.                      
+* Please give us your feedback or report a issue at [Drools Setup](https://groups.google.com/forum/#!forum/drools-setup) or [Drools Usage](https://groups.google.com/forum/#!forum/drools-usage) Google groups.              
+
+Release notes
+--------------
+
+**6.3.0.Final**
+
+* Use Wildfly `8.2.0.Final`             
+* Upgrade app to version `6.3.0.Final`         
+* Disabled examples (no internet connection required at startup)               
+* Added `KIE_DEMO` environment variable to disable examples and demos if host do not have internet connection             
+* Added missing initial artifact `org.guvnor:guvnor-asset-mgmt-project:6.3.0.Final:jar` into the M2 repository. See [BZ-1263738](https://bugzilla.redhat.com/show_bug.cgi?id=1263738)                   

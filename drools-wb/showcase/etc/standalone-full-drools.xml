@@ -2,10 +2,11 @@
 <!--
   CUSTOM MODIFCATIONS FOR Drools Workbench
   ***************************************
-  - THIS FILE IS COPIED FROM DIRECTORY "wildfly-8.1.0.Final/standalone/configuration/standalone-full.xml" from "wildfly-8.1.0.Final.zip"
+  - THIS FILE IS COPIED FROM DIRECTORY "wildfly-8.2.0.Final/standalone/configuration/standalone-full.xml" from "wildfly-8.2.0.Final.zip"
   - THE CUSTOM MODIFICATIONS ON THIS FILE IN THIS IMAGE ARE MARKED WITH THE COMMENT'S TEXT "Drools Workbench"
 -->
-<server xmlns="urn:jboss:domain:2.1">
+
+<server xmlns="urn:jboss:domain:2.2">
     <extensions>
         <extension module="org.jboss.as.clustering.infinispan"/>
         <extension module="org.jboss.as.connector"/>
@@ -35,14 +36,15 @@
         <extension module="org.wildfly.extension.undertow"/>
     </extensions>
 
-  <!-- Drools Workbench - ENABLED EXAMPLE -->
+    <!-- Drools Workbench - ENABLED EXAMPLES -->
     <system-properties>
-      <property name="org.kie.example" value="${org.kie.example:true}"/>
-      <property name="designerdataobjects" value="${designerdataobjects:false}"/>
-      <!-- Make GIT repositories available from outside localhost. -->
-      <property name="org.uberfire.nio.git.ssh.host" value="0.0.0.0"/>
+        <property name="org.kie.demo" value="${org.kie.demo:true}"/>
+        <property name="org.kie.example" value="${org.kie.example:true}"/>
+        <property name="designerdataobjects" value="${designerdataobjects:false}"/>
+        <!-- Make GIT repositories available from outside localhost. -->
+        <property name="org.uberfire.nio.git.ssh.host" value="0.0.0.0"/>
     </system-properties>
-  
+
     <management>
         <security-realms>
             <security-realm name="ManagementRealm">
@@ -56,14 +58,14 @@
             </security-realm>
             <!-- Drools Workbench - CUSTOM PROPERTY FILES FOR AUTHENTICATION / AUTHZ -->
             <security-realm name="ApplicationRealm">
-              <authentication>
-                <local default-user="$local" allowed-users="*" skip-group-loading="true"/>
-                <properties path="drools-users.properties" relative-to="jboss.server.config.dir"/>
-              </authentication>
-              <authorization>
-                <properties path="drools-roles.properties" relative-to="jboss.server.config.dir"/>
-              </authorization>
-          </security-realm>
+                <authentication>
+                    <local default-user="$local" allowed-users="*" skip-group-loading="true"/>
+                    <properties path="drools-users.properties" relative-to="jboss.server.config.dir"/>
+                </authentication>
+                <authorization>
+                    <properties path="drools-roles.properties" relative-to="jboss.server.config.dir"/>
+                </authorization>
+            </security-realm>
         </security-realms>
         <audit-log>
             <formatters>
@@ -398,13 +400,13 @@
         <subsystem xmlns="urn:jboss:domain:security:1.2">
             <security-domains>
                 <security-domain name="other" cache-type="default">
-                  <authentication>
-                    <!-- Drools Workbench - CUSTOM LOGIN MODULE -->
-                    <login-module code="UsersRoles" flag="required">
-                      <module-option name="usersProperties" value="${jboss.server.config.dir}/drools-users.properties"/>
-                      <module-option name="rolesProperties" value="${jboss.server.config.dir}/drools-roles.properties"/>
-                    </login-module>
-                  </authentication>
+                    <authentication>
+                        <!-- Drools Workbench - CUSTOM LOGIN MODULE -->
+                        <login-module code="UsersRoles" flag="required">
+                            <module-option name="usersProperties" value="${jboss.server.config.dir}/drools-users.properties"/>
+                            <module-option name="rolesProperties" value="${jboss.server.config.dir}/drools-roles.properties"/>
+                        </login-module>
+                    </authentication>
                 </security-domain>
                 <security-domain name="jboss-web-policy" cache-type="default">
                     <authorization>
@@ -426,7 +428,7 @@
             </core-environment>
             <recovery-environment socket-binding="txn-recovery-environment" status-socket-binding="txn-status-manager"/>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:undertow:1.1">
+        <subsystem xmlns="urn:jboss:domain:undertow:1.2">
             <buffer-cache name="default"/>
             <server name="default-server">
                 <http-listener name="default" socket-binding="http"/>
@@ -438,6 +440,7 @@
             </server>
             <servlet-container name="default">
                 <jsp-config/>
+                <websockets/>
             </servlet-container>
             <handlers>
                 <file name="welcome-content" path="${jboss.home.dir}/welcome-content"/>

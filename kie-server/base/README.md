@@ -3,7 +3,7 @@ Drools KIE Server Docker image
 
 Drools KIE Server [Docker](http://docker.io/) image.
 
-More information of KIE Server available at [JBoss documentation](http://docs.jboss.org/drools/release/6.2.0.Final/drools-docs/html/ch19.html).
+More information of KIE Server available at [JBoss documentation](http://docs.jboss.org/drools/release/6.3.0.Final/drools-docs/html/ch22.html).
 
 Table of contents
 ------------------
@@ -15,58 +15,38 @@ Table of contents
 * Extending this image
 * Experimenting
 * Notes
+* Release notes
 
 Introduction
 ------------
 
 The image contains:    
            
-* JBoss Wildfly 8.1.0.Final             
-* Drools KIE Server 6.2.0.Final            
+* JBoss Wildfly 8.2.0.Final
+* JBoss Drools KIE Server 6.3.0.Final
 
-This image provides the Drools KIE Server but it's intended to be extended so you can add  your custom configurations such as users, roles, etc.                 
+This image provides the Drools KIE Server. It's intended to be extended so you can add your custom configurations.                 
 
-If you don't want to extend this image and you just want to try Drools KIE Server take a look at the Docker image `jboss/kie-server-showcase:6.2.0.Final`, it contains default users and roles and allows using the application with no custom configurations.                   
+If you don't want to extend this image and you just want to try Drools KIE Server take a look at the `jboss/kie-server-showcase:6.3.0.Final` Docker image, it contains some default configurations.                   
 
 Usage
 -----
 
+The JBoss KIE Execution server is intended to be used as a standalone runtime execution environment managed by a KIE Drools Workbench or a jBPM Workbench application that acts as a controller.              
+This image does not provides any default configuration, so please to use the execution server it's recommended to read the documentation at [Installing the KIE Server](http://docs.jboss.org/drools/release/6.3.0.Final/drools-docs/html/ch22.html#d0e21596). You can check an example of this configuration at the [KIE Server Showcase](https://registry.hub.docker.com/u/jboss/kie-server-showcase/) Docker image too.                                        
+
 To run a container:
     
-    docker run -P -d --name kie-server jboss/kie-server:6.2.0.Final
+    docker run -p 8080:8080 -d --name kie-server jboss/kie-server:6.3.0.Final
 
-Once container and web applications started, you can navigate to it:              
+Once container and web applications started, the application is available at:              
 
-**Using local host binding port**
-
-If you have run the container using `-P` flag in the `docker` command, the port `8080` has been bind to an available port on your host.                 
-
-So you have to discover your host's bind port, that can be done by running the command:          
-
-    docker ps -a
-
-Example of the above command response:                   
-
-CONTAINER ID        IMAGE                                COMMAND                CREATED              STATUS              PORTS                                              NAMES
-    2a55fbe771c0        jboss/kie-server:6.2.0.Final   ./standalone.sh -b 0   About a minute ago   Up About a minute   0.0.0.0:49159->8080/tcp, 0.0.0.0:49160->9990/tcp   kie-server      
-
-As you can see, the bind port to use for container's port `8080` is `49159`, so you can navigate to:
-
-    http://localhost:49159/kie-server
-
-**No bind port for localhost**
-
-In case you run the container without using `-P` flag in the `docker` command, you can navigate to the application at:
-
-    http://<container_ip_address>:8080/kie-server
-    
-You can discover the IP address of your running container by:
-
-    docker inspect --format '{{ .NetworkSettings.IPAddress }}' kie-server
+    http://localhost:8080/kie-server
 
 The **REST API service** is located at:               
 
-        http://<container_ip_address>:8080/kie-server/services/rest/server/
+    http://localhost:8080/kie-server/services/rest/server/
+
 
 Users and roles
 ----------------
@@ -75,7 +55,7 @@ The application have no users or roles configured, so you cannot not access it b
 
 In order to use it, at least you have to create an application user in JBoss Wildfly with role `kie-server`.                  
 
-If you are looking for a Drools KIE Server image that does not require to add custom configurations, try our `jboss/kie-server-showcase:6.2.0.Final` Docker image.                   
+If you are looking for a Drools KIE Server image that does not require to add custom configurations, try our `jboss/kie-server-showcase:6.3.0.Final` Docker image.
 
 If you want to create your custom configuration and users, role, etc, you can take a look at section `Extending this image`.    
 
@@ -106,16 +86,13 @@ You can extend this image and add your custom layers in order to add custom conf
  
 In order to extend this image, your Dockerfile must inherit from:
 
-    FROM jboss/kie-server:6.2.0.Final
+    FROM jboss/kie-server:6.3.0.Final
     
 **Configuring Wildfly**
 
 * The Wildfly configuration files are located at `/opt/jboss/wildfly/standalone/configuration`                   
 * In this file you can modify all Wildfly's subsystem configurations                           
 * Drools KIE Server requires running Wildfly using `full` profile, so custom modifications should be done in `standalone-full.xml` configuration file                      
-* It's recommended if there are several modifications to do, to create a copy of the configuration file, rename it and use it to start Wildfly. If you do that, your Dockerfile must run Wildfly using this configuration file, so your `CMD` command should be as:                         
-    
-        CMD ["./standalone.sh", "-b", "0.0.0.0", "--server-config=your-standalone-full.xml"]
 
 **Users and roles**
 
@@ -129,13 +106,13 @@ These are the steps to create your custom users and roles by using realm files i
  
         kie-server-users.properties
         ---------------------
-        kie-server=kie-server
+        kieserver=kieserver1!
         
 2.- Create a realm properties file for roles and deploy it in `/opt/jboss/wildfly/standalone/configuration`:                 
  
         kie-server-roles.properties
         ---------------------
-        kie-server=kie-server
+        kieserver=kie-server
 
 3.- Modify your `standalone-full.xml` in order to:                
         
@@ -162,27 +139,32 @@ These are the steps to create your custom users and roles by using realm files i
           </authentication>
         </security-domain>
 
-You can find an example by looking at the Dockerfile for `jboss/kie-server-showcase:6.2.0.Final` image.      
+You can find an example by looking at the Dockerfile for `jboss/kie-server-showcase:6.3.0.Final` image.
 
 Experimenting
 -------------
 
 To spin up a shell in one of the containers try:
 
-    docker run -t -i -P jboss/kie-server:6.2.0.Final /bin/bash
+    docker run -t -i -P 8080:8080 jboss/kie-server:6.3.0.Final /bin/bash
 
 You can then noodle around the container and run stuff & look at files etc.
-
-You can run the Drools KIE Server web application by running command:
-
-    /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 --server-config=standalone-full.xml
-
 
 Notes
 -----
 
-* Drools KIE Server version is `6.2.0.Final`               
-* Drools KIE Server requires running JBoss Wildfly using `full` profile                        
+* The context path for Drools KIE Server application services is `kie-server`
+* Drools KIE Server version is `6.3.0.Final`
+* Drools KIE Server requires running JBoss Wildfly using the `full` server profile
 * No users or roles are configured by default               
 * No support for clustering                
-* The context path for Drools KIE Server web application is `kie-server`                  
+* This image is not intended to be run on cloud environments such as RedHat OpenShift or Amazon EC2, as it does not meet all the requirements.                      
+* Please give us your feedback or report a issue at [Drools Setup](https://groups.google.com/forum/#!forum/drools-setup) or [Drools Usage](https://groups.google.com/forum/#!forum/drools-usage) Google groups.              
+
+Release notes
+--------------
+
+**6.3.0.Final**
+
+* Use Wildfly `8.2.0.Final`             
+* Upgrade app to version `6.3.0.Final`         
