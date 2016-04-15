@@ -6,12 +6,12 @@
 FROM jboss/wildfly:8.2.0.Final
 
 ####### MAINTAINER ############
-MAINTAINER "Roger Martinez" "romartin@redhat.com"
+MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 
 ####### ENVIRONMENT ############
 ENV JBOSS_BIND_ADDRESS 0.0.0.0
 ENV KIE_REPOSITORY https://repository.jboss.org/nexus/content/groups/public-jboss
-ENV KIE_VERSION 6.3.0.Final
+ENV KIE_VERSION 6.4.0.Final
 ENV KIE_CLASSIFIER ee7
 ENV KIE_CONTEXT_PATH kie-server
 ENV JAVA_OPTS -XX:MaxPermSize=256m -Xms256m -Xmx512m
