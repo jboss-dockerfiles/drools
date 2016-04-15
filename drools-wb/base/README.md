@@ -22,7 +22,7 @@ Introduction
 The image contains:       
         
 * JBoss Wildfly 8.2.0.Final
-* JBoss Drools Workbench 6.3.0.Final
+* JBoss Drools Workbench 6.4.0.Final
 
 This image provides the JBoss Drools Workbench web application. It's intended to be extended so you can add your custom configurations.                                  
 

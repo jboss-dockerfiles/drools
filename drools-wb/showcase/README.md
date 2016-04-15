@@ -22,9 +22,9 @@ Introduction
 The image contains:     
           
 * JBoss Wildfly 8.2.0.Final
-* JBoss Drools Workbench 6.3.0.Final
+* JBoss Drools Workbench 6.4.0.Final
 
-This image inherits from `jboss/drools-workbench:6.3.0.Final` and provides some additional configurations:                   
+This image inherits from `jboss/drools-workbench:6.4.0.Final` and provides some additional configurations:                   
 
 * Default users and roles               
 * Some examples            
@@ -36,7 +36,7 @@ Usage
 
 To run a container:
     
-    docker run -p 8080:8080 -p 8001:8001 -d --name drools-workbench jboss/drools-workbench-showcase:6.3.0.Final
+    docker run -p 8080:8080 -p 8001:8001 -d --name drools-workbench jboss/drools-workbench-showcase:6.4.0.Final
 
 Once container and web applications started, you can navigate to it using one of the users described in section `Users and roles`, using the following URL:             
 
