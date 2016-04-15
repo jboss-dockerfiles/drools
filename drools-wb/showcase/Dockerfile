@@ -1,12 +1,12 @@
 #####################################################################################
-# Dockerfile that provides the image for JBoss Drools Workbench 6.3.0.Final Showcase
+# Dockerfile that provides the image for JBoss Drools Workbench 6.4.0.Final Showcase
 #####################################################################################
 
 ####### BASE ############
-FROM jboss/drools-workbench:6.3.0.Final
+FROM jboss/drools-workbench:6.4.0.Final
 
 ####### MAINTAINER ############
-MAINTAINER "Roger Martinez" "romartin@redhat.com"
+MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 
 ####### ENVIRONMENT ############
 # Use demo and examples by default in this showcase image (internet connection required).
