@@ -11,7 +11,7 @@ MAINTAINER "Roger Martinez" "romartin@redhat.com"
 ####### ENVIRONMENT ############
 ENV JBOSS_BIND_ADDRESS 0.0.0.0
 ENV KIE_REPOSITORY https://repository.jboss.org/nexus/content/groups/public-jboss
-ENV KIE_VERSION 6.3.0.Final
+ENV KIE_VERSION 6.4.0.Final
 ENV KIE_CLASSIFIER wildfly8
 ENV KIE_CONTEXT_PATH drools-wb
 ENV KIE_SERVER_PROFILE standalone-full
