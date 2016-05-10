@@ -27,7 +27,7 @@ The image contains:
 
 This image provides the Drools KIE Server. It's intended to be extended so you can add your custom configurations.                 
 
-If you don't want to extend this image and you just want to try Drools KIE Server take a look at the `jboss/kie-server-showcase:6.4.0.Final` Docker image, it contains some default configurations.                   
+If you don't want to extend this image and you just want to try Drools KIE Server take a look at the `jboss/kie-server-showcase:latest` Docker image, it contains some default configurations.                   
 
 Usage
 -----
@@ -37,7 +37,7 @@ This image does not provides any default configuration, so please to use the exe
 
 To run a container:
     
-    docker run -p 8080:8080 -d --name kie-server jboss/kie-server:6.4.0.Final
+    docker run -p 8080:8080 -d --name kie-server jboss/kie-server:latest
 
 Once container and web applications started, the application is available at:              
 
@@ -55,7 +55,7 @@ The application have no users or roles configured, so you cannot not access it b
 
 In order to use it, at least you have to create an application user in JBoss Wildfly with role `kie-server`.                  
 
-If you are looking for a Drools KIE Server image that does not require to add custom configurations, try our `jboss/kie-server-showcase:6.4.0.Final` Docker image.
+If you are looking for a Drools KIE Server image that does not require to add custom configurations, try our `jboss/kie-server-showcase:latest` Docker image.
 
 If you want to create your custom configuration and users, role, etc, you can take a look at section `Extending this image`.    
 
@@ -86,7 +86,7 @@ You can extend this image and add your custom layers in order to add custom conf
  
 In order to extend this image, your Dockerfile must inherit from:
 
-    FROM jboss/kie-server:6.4.0.Final
+    FROM jboss/kie-server:latest
     
 **Configuring Wildfly**
 
@@ -139,14 +139,14 @@ These are the steps to create your custom users and roles by using realm files i
           </authentication>
         </security-domain>
 
-You can find an example by looking at the Dockerfile for `jboss/kie-server-showcase:6.4.0.Final` image.
+You can find an example by looking at the Dockerfile for `jboss/kie-server-showcase:latest` image.
 
 Experimenting
 -------------
 
 To spin up a shell in one of the containers try:
 
-    docker run -t -i -P 8080:8080 jboss/kie-server:6.4.0.Final /bin/bash
+    docker run -t -i -P 8080:8080 jboss/kie-server:latest /bin/bash
 
 You can then noodle around the container and run stuff & look at files etc.
 
@@ -167,4 +167,4 @@ Release notes
 **6.4.0.Final**
 
 * Use Wildfly `8.2.0.Final`             
-* Upgrade app to version `6.4.0.Final`         
+* Upgrade app to version `latest` = (6.4.0.Final)         
