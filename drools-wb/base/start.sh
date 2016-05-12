@@ -13,7 +13,7 @@
 
 CONTAINER_NAME="drools-workbench"
 IMAGE_NAME="jboss/drools-workbench"
-IMAGE_TAG="6.4.0.Final"
+IMAGE_TAG="latest"
 
 function usage
 {
@@ -47,7 +47,7 @@ fi
 echo "Starting $CONTAINER_NAME docker container using:"
 echo "** Container name: $CONTAINER_NAME"
 image_drools_workbench=$(docker run -P -d --name $CONTAINER_NAME $IMAGE_NAME:$IMAGE_TAG)
-ip_drools_workbench=$(docker inspect $image_drools_workbench | grep IPAddress | awk '{print $2}' | tr -d '",')
+ip_drools_workbench=$(docker inspect $image_drools_workbench | grep \"IPAddress\" | awk '{print $2}' | tr -d '",')
 echo $image_drools_workbench > docker.pid
 
 # End

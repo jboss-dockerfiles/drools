@@ -35,7 +35,7 @@ The JBoss KIE Execution server is intended to be used as a standalone runtime ex
 Once having a KIE Drools Workbench or a jBPM Workbench application container running, you can run several execution server instances linked with your workbench by running:                                 
     
     # NOTE: Consider 'drools-wb' as the name of your Drools workbench running container.     
-    docker run -p 8180:8080 -d --name kie-server --link drools-wb:kie_wb jboss/kie-server-showcase:6.4.0.Final
+    docker run -p 8180:8080 -d --name kie-server --link drools-wb:kie_wb jboss/kie-server-showcase:latest
 
 Note: Port `8080` is bind to port `8180` on the docker host considering that `drools-wb` container is already using it.         
  
@@ -86,7 +86,7 @@ Experimenting
 
 To spin up a shell in one of the containers try:
 
-    docker run -t -i -p 8080:8080 jboss/kie-server-showcase:6.4.0.Final /bin/bash
+    docker run -t -i -p 8080:8080 jboss/kie-server-showcase:latest /bin/bash
 
 You can then noodle around the container and run stuff & look at files etc.
 

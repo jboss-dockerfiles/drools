@@ -24,7 +24,7 @@ The image contains:
 * JBoss Wildfly 8.2.0.Final
 * JBoss Drools Workbench 6.4.0.Final
 
-This image inherits from `jboss/drools-workbench:6.4.0.Final` and provides some additional configurations:                   
+This image inherits from `jboss/drools-workbench:latest` and provides some additional configurations:                   
 
 * Default users and roles               
 * Some examples            
@@ -36,7 +36,7 @@ Usage
 
 To run a container:
     
-    docker run -p 8080:8080 -p 8001:8001 -d --name drools-workbench jboss/drools-workbench-showcase:6.4.0.Final
+    docker run -p 8080:8080 -p 8001:8001 -d --name drools-workbench jboss/drools-workbench-showcase:latest
 
 Once container and web applications started, you can navigate to it using one of the users described in section `Users and roles`, using the following URL:             
 
@@ -45,7 +45,7 @@ Once container and web applications started, you can navigate to it using one of
 Please note that in this image the examples and demos are enabled by default, so you **need external connection to [GitHub](https://github.com/)**. 
 If your container runs without internet connection, please set `KIE_DEMO` the environment variable to value `false` as:                             
 
-    docker run -p 8080:8080 -p 8001:8001 -e KIE_DEMO=false -d --name drools-workbench jboss/drools-workbench-showcase:6.4.0.Final
+    docker run -p 8080:8080 -p 8001:8001 -e KIE_DEMO=false -d --name drools-workbench jboss/drools-workbench-showcase:latest
     
 Users and roles
 ----------------
@@ -120,7 +120,7 @@ Experimenting
 
 To spin up a shell in one of the containers try:
 
-    docker run -p 8080:8080 -p 8001:8001 -d --name drools-workbench jboss/drools-workbench-showcase:6.4.0.Final /bin/bash
+    docker run -p 8080:8080 -p 8001:8001 -d --name drools-workbench jboss/drools-workbench-showcase:latest /bin/bash
 
 You can then noodle around the container and run stuff & look at files etc.
 
