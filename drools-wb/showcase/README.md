@@ -11,6 +11,7 @@ Table of contents
 * Users and roles
 * Logging
 * GIT internal repository access
+* Persistent configuration
 * Extending this image
 * Experimenting
 * Notes
@@ -115,6 +116,63 @@ You can set this Java system properties permanent by adding the following lines 
     
 NOTE: Users and password for ssh access are the same that for the web application users defined at the realm files.   
 
+Persistent configuration
+------------------------
+
+As Docker defaults, once a container has been removed, the data within that container is removed as well.                
+
+At first glance this should not imply any issues as the assets authored on your workbench containers are not lost if you don't remove the container, you can stop and restart it 
+as many times as you need, and have different kie execution server container's consuming those assets, the problem comes if you need to remove and create new workbench containers.                                       
+          
+In the case you need to create a persistent environment you can use an approach based on [Docker Volumes](https://docs.docker.com/engine/tutorials/dockervolumes/). Here are two ways of doing it.           
+
+**Using default GIT root directory**               
+
+By default, the internal GIT root directory for the workbench container is located at `/opt/jboss/wildfly/bin/.niogit`, so you can make this directory persistent in your docker host by running the container using a docker shared volumne as:                   
+
+    # Use -v <SOURCE_FS_PATH>:<CONTAINER_FS_PATH>
+    docker run -p 8080:8080 -p 8001:8001 -v /home/myuser/wb_git:/opt/jboss/wildfly/bin/.niogit -d --name drools-workbench jboss/drools-workbench-showcase:latest
+    
+As the above command, now your workbench git repository will be persistent at your host filesystem's path `/home/myuser/wb_git`. So if you remove this container and start a new one just by using same shared volume, you'll find all your assets on the new workbench's container as well.                   
+
+**Using custom GIT root directory**               
+
+Considering this showcase module as the base for this example, follow the next steps:                           
+
+1.- Edit the [standalone-full-drools.xml](./etc/standalone-full-drools.xml) and change the default GIT repository location for your favourite one:                
+ 
+    <system-properties>
+        <property name="org.kie.demo" value="${org.kie.demo:true}"/>
+        <property name="org.kie.example" value="${org.kie.example:true}"/>
+        <property name="designerdataobjects" value="${designerdataobjects:false}"/>
+        
+        <!-- Make GIT repositories root directory at /opt/jboss/wildfly/mygit. -->
+        <property name="org.uberfire.nio.git.dir" value="/opt/jboss/wildfly/mygit"/>
+        
+        <!-- Make GIT repositories available from outside localhost. -->
+        <property name="org.uberfire.nio.git.ssh.host" value="0.0.0.0"/>
+    </system-properties>
+
+2.- Edit the [Dockerfile](./Dockerfile) and add these lines:       
+ 
+    USER root
+    RUN mkdir -p $JBOSS_HOME/mygit
+    RUN chown jboss:jboss $JBOSS_HOME/mygit
+    USER jboss
+    
+3.- Create your Docker image:                      
+
+    docker build --rm -t jboss/drools-workbench-showcase:MY_TAG
+
+At this point, the default GIT root directory for the workbench will be located inside the Docker container at `/opt/jboss/wildfly/mygit`. So all your assets will be stored in the underlying git structure on this path.            
+
+In order to keep the git repositories between different containers you can just start the container by configuring a new host volume as:                
+
+    # Use -v <SOURCE_FS_PATH>:<CONTAINER_FS_PATH>
+    docker run -p 8080:8080 -p 8001:8001 -v /home/myuser/wb_git:/opt/jboss/wildfly/mygit -d --name drools-workbench jboss/drools-workbench-showcase:MY_TAG
+    
+As the above command, now your workbench git repository will be persistent at your local filesystem path `/home/myuser/wb_git`. So if you remove this container and start a new one just by using same shared volume, you'll find all your assets on the new workbench's container as well.                      
+    
 Experimenting
 -------------
 
