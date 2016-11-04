@@ -3,7 +3,7 @@
 ###########################################################################
 
 ####### BASE ############
-FROM jboss/wildfly:8.2.0.Final
+FROM jboss/wildfly:10.0.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
@@ -11,13 +11,13 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 ####### ENVIRONMENT ############
 ENV JBOSS_BIND_ADDRESS 0.0.0.0
 ENV KIE_REPOSITORY https://repository.jboss.org/nexus/content/groups/public-jboss
-ENV KIE_VERSION 6.4.0.Final
-ENV KIE_CLASSIFIER wildfly8
+ENV KIE_VERSION 6.5.0.Final
+ENV KIE_CLASSIFIER wildfly10
 ENV KIE_CONTEXT_PATH drools-wb
 ENV KIE_SERVER_PROFILE standalone-full
 # Do NOT use demo neither examples by default in this image (no internet connection required).
 ENV KIE_DEMO false
-ENV JAVA_OPTS -XX:MaxPermSize=256m -Xms256m -Xmx512m
+ENV JAVA_OPTS -Xms256m -Xmx512m
 
 ####### DROOLS-WB ############
 RUN curl -o $HOME/$KIE_CONTEXT_PATH.war $KIE_REPOSITORY/org/kie/kie-drools-wb-distribution-wars/$KIE_VERSION/kie-drools-wb-distribution-wars-$KIE_VERSION-$KIE_CLASSIFIER.war && \

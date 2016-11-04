@@ -22,8 +22,8 @@ Introduction
 
 The image contains:     
           
-* JBoss Wildfly 8.2.0.Final
-* JBoss Drools Workbench 6.4.0.Final
+* JBoss Wildfly 10.0.0.Final
+* JBoss Drools Workbench 6.5.0.Final
 
 This image inherits from `jboss/drools-workbench:latest` and provides some additional configurations:                   
 
@@ -186,7 +186,7 @@ Notes
 -----
 
 * The context path for Drools Workbench web application is `drools-wb`                  
-* Drools Workbench version is `6.4.0.Final`
+* Drools Workbench version is `6.5.0.Final`
 * Drools Workbench requires running JBoss Wildfly using the `full` server profile            
 * Internet connection required if using examples and demos (active by default)            
 * No support for clustering                
@@ -198,6 +198,6 @@ Notes
 Release notes
 --------------
 
-**6.4.0.Final**
+**6.5.0.Final**
 
-* See release notes for [Drools Workbench](https://hub.docker.com/r/jboss/drools-workbench/) version `6.4.0.Final`                     
+* See release notes for [Drools Workbench](https://hub.docker.com/r/jboss/drools-workbench/) version `6.5.0.Final`                     
