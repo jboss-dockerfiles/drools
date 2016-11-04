@@ -3,7 +3,7 @@
 #####################################################################################
 
 ####### BASE ############
-FROM jboss/drools-workbench:6.4.0.Final
+FROM jboss/drools-workbench:6.5.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
