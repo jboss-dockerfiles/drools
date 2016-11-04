@@ -1,9 +1,9 @@
 #################################################################################
-# Dockerfile that provides the image for JBoss KIE Server 6.4.0.Final
+# Dockerfile that provides the image for JBoss KIE Server 6.5.0.Final
 #################################################################################
 
 ####### BASE ############
-FROM jboss/wildfly:8.2.0.Final
+FROM jboss/wildfly:10.0.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
@@ -11,11 +11,19 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 ####### ENVIRONMENT ############
 ENV JBOSS_BIND_ADDRESS 0.0.0.0
 ENV KIE_REPOSITORY https://repository.jboss.org/nexus/content/groups/public-jboss
-ENV KIE_VERSION 6.4.0.Final
+ENV KIE_VERSION 6.5.0.Final
 ENV KIE_CLASSIFIER ee7
 ENV KIE_CONTEXT_PATH kie-server
-ENV JAVA_OPTS -XX:MaxPermSize=256m -Xms256m -Xmx512m
+ENV JAVA_OPTS -Xms256m -Xmx512m
 
+###### SWITCH USER root ######
+USER root
+
+###### INSTALL PACKAGES ######
+RUN yum install -y net-tools
+
+##### SWITCH BACK TO jboss ####
+USER jboss
 ####### KIE-SERVER ############
 RUN curl -o $HOME/$KIE_CONTEXT_PATH.war $KIE_REPOSITORY/org/kie/server/kie-server/$KIE_VERSION/kie-server-$KIE_VERSION-$KIE_CLASSIFIER.war && \
 unzip -q $HOME/$KIE_CONTEXT_PATH.war -d $JBOSS_HOME/standalone/deployments/$KIE_CONTEXT_PATH.war &&  \
