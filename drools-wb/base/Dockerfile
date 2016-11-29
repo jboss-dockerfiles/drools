@@ -1,5 +1,5 @@
 ###########################################################################
-# Dockerfile that provides the image for JBoss Drools Workbench 6.4.0.Final
+# Dockerfile that provides the image for JBoss Drools Workbench 6.5.0.Final
 ###########################################################################
 
 ####### BASE ############
