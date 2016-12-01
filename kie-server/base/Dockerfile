@@ -30,6 +30,15 @@ unzip -q $HOME/$KIE_CONTEXT_PATH.war -d $JBOSS_HOME/standalone/deployments/$KIE_
 touch $JBOSS_HOME/standalone/deployments/$KIE_CONTEXT_PATH.war.dodeploy &&  \
 rm -rf $HOME/$KIE_CONTEXT_PATH.war
 
-####### RUNNING KIE-SERVER ############
+####### SCRIPTS ############
+USER root
+ADD etc/start_kie-wb.sh $JBOSS_HOME/bin/start_kie-wb.sh
+RUN chown jboss:jboss $JBOSS_HOME/bin/start_kie-wb.sh
+
+####### CUSTOM JBOSS USER ############
+# Switchback to jboss user
+USER jboss
+
+####### RUNNING DROOLS-WB ############
 WORKDIR $JBOSS_HOME/bin/
-CMD ["./standalone.sh", "-b", "$JBOSS_BIND_ADDRESS", "-c", "standalone-full.xml"]
+CMD ["./start_kie-wb.sh"]
