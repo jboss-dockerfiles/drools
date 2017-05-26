@@ -17,7 +17,7 @@ ENV KIE_CONTEXT_PATH drools-wb
 ENV KIE_SERVER_PROFILE standalone-full
 # Do NOT use demo neither examples by default in this image (no internet connection required).
 ENV KIE_DEMO false
-ENV JAVA_OPTS -Xms256m -Xmx512m
+ENV JAVA_OPTS -Xms256m -Xmx512m -Djava.net.preferIPv4Stack=true
 
 ####### DROOLS-WB ############
 RUN curl -o $HOME/$KIE_CONTEXT_PATH.war $KIE_REPOSITORY/org/kie/kie-drools-wb-distribution-wars/$KIE_VERSION/kie-drools-wb-distribution-wars-$KIE_VERSION-$KIE_CLASSIFIER.war && \
