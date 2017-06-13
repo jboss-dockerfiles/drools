@@ -19,6 +19,7 @@ ENV KIE_SERVER_CONTROLLER_PWD admin
 ENV KIE_MAVEN_REPO http://localhost:8080/kie-wb/maven2
 ENV KIE_MAVEN_REPO_USER admin
 ENV KIE_MAVEN_REPO_PASSWORD admin
+ENV JAVA_OPTS -Xms256m -Xmx512m -Djava.net.preferIPv4Stack=true
 
 ####### Drools KIE Server CUSTOM CONFIGURATION ############
 RUN mkdir -p $HOME/.m2
