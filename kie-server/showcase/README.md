@@ -3,7 +3,7 @@ Drools KIE Server showcase Docker image
 
 Drools KIE Server showcase [Docker](http://docker.io/) image.
 
-More information of KIE Server available at [JBoss documentation](http://docs.jboss.org/drools/release/6.5.0.Final/drools-docs/html/ch22.html).
+More information of KIE Server available at [JBoss documentation](https://docs.jboss.org/drools/release/7.0.0.Final/drools-docs/html_single/index.html#_ch.kie.server).
 
 Table of contents
 ------------------
@@ -22,8 +22,8 @@ Introduction
 
 The image contains: 
               
-* JBoss Wildfly 10.0.0.Final
-* JBoss Drools KIE Server 6.5.0.Final
+* JBoss Wildfly 10.1.0.Final
+* JBoss Drools KIE Server 7.0.0.Final
 
 This is a **ready to run Docker image for Drools KIE Server**. Just run it and try the Drools runtime execution server!                   
 
@@ -46,7 +46,7 @@ As in the above example, the use of the link alias `kie_wb` produces:
 
 So at the point the execution server container is up and running, this server instance will be automatically detected and available in your Drools/jBPM Workbench application, so you can deploy and run your application rules, etc into it.                 
 
-For more information, please read the documentation at [Installing the KIE Server](http://docs.jboss.org/drools/release/6.5.0.Final/drools-docs/html/ch22.html#d0e21596).                 
+For more information, please read the documentation at [Installing the KIE Server](https://docs.jboss.org/drools/release/7.0.0.Final/drools-docs/html_single/index.html#_installing_the_kie_server).                 
 
 Once container and web applications started, the application is available at:              
 
@@ -94,7 +94,7 @@ Notes
 -----
 
 * The context path for Drools KIE Server application services is `kie-server`
-* Drools KIE Server version is `6.5.0.Final`
+* Drools KIE Server version is `7.0.0.Final`
 * Drools KIE Server requires running JBoss Wildfly using the `full` server profile
 * In order to perform container linking with a jBPM / Drools Workbench image, the link alias must be `kie_wb`       
 * No support for clustering                
@@ -103,6 +103,10 @@ Notes
 
 Release notes
 -------------
+
+**7.0.0.Final**
+
+* See release notes for [KIE Server](https://hub.docker.com/r/jboss/kie-server/) version `7.0.0.Final`    
 
 **6.5.0.Final**
 
