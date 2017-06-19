@@ -21,8 +21,8 @@ Introduction
 
 The image contains:       
         
-* JBoss Wildfly 10.0.0.Final
-* JBoss Drools Workbench 6.5.0.Final
+* JBoss Wildfly 10.1.0.Final
+* JBoss Drools Workbench 7.0.0.Final
 
 This image provides the JBoss Drools Workbench web application. It's intended to be extended so you can add your custom configurations.                                  
 
@@ -145,11 +145,16 @@ These are the steps to create your custom users and roles by using realm files i
  
         drools-users.properties
         ---------------------
-        admin=admin
-        analyst=analyst
-        developer=developer
-        manager=manager
-        user=user
+        #admin=admin
+        admin=207b6e0cc556d7084b5e2db7d822555c
+        #analyst=analyst
+        analyst=047ca331957b5ce5021e8e01d3322a13
+        #developer=developer
+        developer=97df44a197a58de9674af3cd139df47e
+        #manager=manager
+        manager=e5148a68341fbc5afbe08fb4ab6da2c5
+        #user=user
+        user=c5568adea472163dfc00c19c6348a665
         
 2.- Create a realm properties file for roles and deploy it in `/opt/jboss/wildfly/standalone/configuration`:                 
  
@@ -166,22 +171,24 @@ These are the steps to create your custom users and roles by using realm files i
 3.1 - In the `management` section, modify default the security-realm for the `ApplicationRealm` as:                   
 
         <security-realm name="ApplicationRealm">
-              <authentication>
-                <local default-user="$local" allowed-users="*" skip-group-loading="true"/>
-                <properties path="drools-users.properties" relative-to="jboss.server.config.dir"/>
-              </authentication>
-              <authorization>
-                <properties path="drools-roles.properties" relative-to="jboss.server.config.dir"/>
-              </authorization>
-          </security-realm>
+          <authentication>
+            <local default-user="$local" allowed-users="*" skip-group-loading="true"/>
+            <properties path="drools-users.properties" relative-to="jboss.server.config.dir"/>
+          </authentication>
+          <authorization>
+            <properties path="drools-roles.properties" relative-to="jboss.server.config.dir"/>
+          </authorization>
+        </security-realm>
           
 3.2 - In the `security` subsystem, modify default the `other` security-domain for as:                         
 
         <security-domain name="other" cache-type="default">
           <authentication>
-            <login-module code="UsersRoles" flag="required">
-              <module-option name="usersProperties" value="${jboss.server.config.dir}/drools-users.properties"/>
-              <module-option name="rolesProperties" value="${jboss.server.config.dir}/drools-roles.properties"/>
+            <login-module code="Remoting" flag="optional">
+              <module-option name="password-stacking" value="useFirstPass"/>
+            </login-module>
+            <login-module code="RealmDirect" flag="required">
+              <module-option name="password-stacking" value="useFirstPass"/>
             </login-module>
           </authentication>
         </security-domain>
@@ -197,14 +204,21 @@ To spin up a shell in one of the containers try:
 
 You can then noodle around the container and run stuff & look at files etc.
 
+Troubleshoot
+------------
+
+If the application can't be accessed via browser (http://localhost:8080/drools-wb) please run the container in [host network mode](https://docs.docker.com/engine/reference/run/#network-settings). It seems that latest docker versions have some restrictions on the networking side. Using an older daemon version this does not happen.
+Try:
+
+    docker run .... --network="host .."
+
 Notes
 -----
 
 * The context path for Drools Workbench web application is `drools-wb`                  
-* Drools Workbench version is `6.5.0.Final`
+* Drools Workbench version is `7.0.0.Final`
 * Drools Workbench requires running JBoss Wildfly using the `full` server profile
 * No users or roles are configured by default               
-* Examples and demos disabled by default (no internet connection required at startup)               
 * No support for clustering                
 * Use of embedded H2 database server by default               
 * No support for Wildfly domain mode, just standalone mode                    
@@ -214,9 +228,7 @@ Notes
 Release notes
 --------------
 
-**6.5.0.Final**
+**7.0.0.Final**
 
-* Use Wildfly `10.0.0.Final`             
-* Upgrade app to version `6.5.0.Final`         
-* Disabled examples (no internet connection required at startup)               
+* Use Wildfly `10.1.0.Final` 
 * Added `KIE_DEMO` environment variable to disable examples and demos if host do not have internet connection             

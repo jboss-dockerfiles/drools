@@ -1,9 +1,9 @@
 #################################################################################
-# Dockerfile that provides the image for JBoss KIE Server 6.5.0.Final Showcase
+# Dockerfile that provides the image for JBoss KIE Server 7.0.0.Final Showcase
 #################################################################################
 
 ####### BASE ############
-FROM jboss/kie-server:6.5.0.Final-1
+FROM jboss/kie-server:7.0.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"

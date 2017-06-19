@@ -22,8 +22,8 @@ Introduction
 
 The image contains:     
           
-* JBoss Wildfly 10.0.0.Final
-* JBoss Drools Workbench 6.5.0.Final
+* JBoss Wildfly 10.1.0.Final
+* JBoss Drools Workbench 7.0.0.Final
 
 This image inherits from `jboss/drools-workbench:latest` and provides some additional configurations:                   
 
@@ -54,15 +54,13 @@ Users and roles
 This showcase image contains default users and roles:               
 
     USER        PASSWORD    ROLE
-    *************************************************
+    *********************************************
     admin       admin       admin,analyst,kiemgmt
     krisv       krisv       admin,analyst
     john        john        analyst,Accounting,PM
-    mary        mary        analyst,HR
     sales-rep   sales-rep   analyst,sales
     katy        katy        analyst,HR
     jack        jack        analyst,IT
-    salaboy     salaboy     admin,analyst,IT,HR,Accounting
     
 Logging
 -------
@@ -182,13 +180,21 @@ To spin up a shell in one of the containers try:
 
 You can then noodle around the container and run stuff & look at files etc.
 
+Troubleshoot
+------------
+
+If the application can't be accessed via browser (http://localhost:8080/drools-wb) please run the container in [host network mode](https://docs.docker.com/engine/reference/run/#network-settings). It seems that latest docker versions have some restrictions on the networking side. Using an older daemon version this does not happen.
+Try:
+
+    docker run .... --network="host .."
+
+
 Notes
 -----
 
 * The context path for Drools Workbench web application is `drools-wb`                  
-* Drools Workbench version is `6.5.0.Final`
+* Drools Workbench version is `7.0.0.Final`
 * Drools Workbench requires running JBoss Wildfly using the `full` server profile            
-* Internet connection required if using examples and demos (active by default)            
 * No support for clustering                
 * Use of embedded H2 database server by default               
 * No support for Wildfly domain mode, just standalone mode                    
@@ -198,6 +204,6 @@ Notes
 Release notes
 --------------
 
-**6.5.0.Final**
+**7.0.0.Final**
 
-* See release notes for [Drools Workbench](https://hub.docker.com/r/jboss/drools-workbench/) version `6.5.0.Final`                     
+* See release notes for [Drools Workbench](https://hub.docker.com/r/jboss/drools-workbench/) version `7.0.0.Final`                     
