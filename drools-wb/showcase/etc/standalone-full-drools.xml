@@ -2,7 +2,7 @@
 <!--
   CUSTOM MODIFCATIONS FOR Drools Workbench
   ***************************************
-  - THIS FILE IS COPIED FROM DIRECTORY "wildfly-10.0.0.Final/standalone/configuration/standalone-full.xml" from "wildfly-10.0.0.Final.zip"
+  - THIS FILE IS COPIED FROM DIRECTORY "wildfly-10.1.0.Final/standalone/configuration/standalone-full.xml" from "wildfly-10.1.0.Final.zip"
   - THE CUSTOM MODIFICATIONS ON THIS FILE IN THIS IMAGE ARE MARKED WITH THE COMMENT'S TEXT "Drools Workbench"
 -->
 
@@ -364,10 +364,11 @@
             <security-domains>
                 <security-domain name="other" cache-type="default">
                     <authentication>
-                        <!-- Drools Workbench - CUSTOM LOGIN MODULE -->
-                        <login-module code="UsersRoles" flag="required">
-                            <module-option name="usersProperties" value="${jboss.server.config.dir}/drools-users.properties"/>
-                            <module-option name="rolesProperties" value="${jboss.server.config.dir}/drools-roles.properties"/>
+                        <login-module code="Remoting" flag="optional">
+                            <module-option name="password-stacking" value="useFirstPass"/>
+                        </login-module>
+                        <login-module code="RealmDirect" flag="required">
+                            <module-option name="password-stacking" value="useFirstPass"/>
                         </login-module>
                     </authentication>
                 </security-domain>
