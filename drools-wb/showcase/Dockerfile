@@ -10,7 +10,6 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 
 ####### ENVIRONMENT ############
 # Use demo and examples by default in this showcase image (internet connection required).
-ENV KIE_DEMO true
 ENV KIE_SERVER_PROFILE standalone-full-drools
 ENV JAVA_OPTS -Xms256m -Xmx512m -Djava.net.preferIPv4Stack=true
 
