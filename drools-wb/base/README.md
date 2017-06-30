@@ -231,4 +231,3 @@ Release notes
 **7.0.0.Final**
 
 * Use Wildfly `10.1.0.Final` 
-* Added `KIE_DEMO` environment variable to disable examples and demos if host do not have internet connection             

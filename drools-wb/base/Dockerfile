@@ -15,8 +15,6 @@ ENV KIE_VERSION 7.0.0.Final
 ENV KIE_CLASSIFIER wildfly10
 ENV KIE_CONTEXT_PATH drools-wb
 ENV KIE_SERVER_PROFILE standalone-full
-# Do NOT use demo neither examples by default in this image (no internet connection required).
-ENV KIE_DEMO false
 ENV JAVA_OPTS -Xms256m -Xmx512m
 
 ####### DROOLS-WB ############
