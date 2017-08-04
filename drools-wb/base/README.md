@@ -22,7 +22,7 @@ Introduction
 The image contains:       
         
 * JBoss Wildfly 10.1.0.Final
-* JBoss Drools Workbench 7.0.0.Final
+* JBoss Drools Workbench 7.1.0.Final
 
 This image provides the JBoss Drools Workbench web application. It's intended to be extended so you can add your custom configurations.                                  
 
@@ -216,7 +216,7 @@ Notes
 -----
 
 * The context path for Drools Workbench web application is `drools-wb`                  
-* Drools Workbench version is `7.0.0.Final`
+* Drools Workbench version is `7.1.0.Final`
 * Drools Workbench requires running JBoss Wildfly using the `full` server profile
 * No users or roles are configured by default               
 * No support for clustering                
@@ -228,6 +228,6 @@ Notes
 Release notes
 --------------
 
-**7.0.0.Final**
+**7.1.0.Final**
 
 * Use Wildfly `10.1.0.Final` 

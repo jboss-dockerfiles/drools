@@ -15,6 +15,7 @@ CONTAINER_NAME="drools-workbench"
 IMAGE_NAME="jboss/drools-workbench"
 IMAGE_TAG="latest"
 
+
 function usage
 {
      echo "usage: start.sh [ [-c <container_name> ] ] [-h]]"
