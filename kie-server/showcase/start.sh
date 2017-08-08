@@ -15,6 +15,7 @@ CONTAINER_NAME="kie-server-showcase"
 IMAGE_NAME="jboss/kie-server-showcase"
 IMAGE_TAG="latest"
 
+
 function usage
 {
      echo "usage: start.sh [ [-c <container_name> ] ] [-h]]"
