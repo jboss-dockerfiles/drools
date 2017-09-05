@@ -355,8 +355,8 @@
                     <authentication>
                         <!-- Drools KIE Server - CUSTOM LOGIN MODULE -->
                         <login-module code="UsersRoles" flag="required">
-                            <module-option name="usersProperties" value="${jboss.server.config.dir}/kie-server-users.properties"/>
-                            <module-option name="rolesProperties" value="${jboss.server.config.dir}/kie-server-roles.properties"/>
+                            <module-option name="usersProperties" value="file:///${jboss.server.config.dir}/kie-server-users.properties"/>
+                            <module-option name="rolesProperties" value="file:///${jboss.server.config.dir}/kie-server-roles.properties"/>
                         </login-module>
                     </authentication>
                 </security-domain>
