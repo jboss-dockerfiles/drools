@@ -15,6 +15,7 @@ CONTAINER_NAME="drools-workbench"
 IMAGE_NAME="jboss/drools-workbench"
 IMAGE_TAG="latest"
 
+
 function usage
 {
      echo "usage: start.sh [ [-c <container_name> ] ] [-h]]"
@@ -36,9 +37,9 @@ done
 
 # Check if container is already started
 if [ -f docker.pid ]; then
-    echo "Container is already started"
+    echo "Container already started"
     container_id=$(cat docker.pid)
-    echo "Stoping container $container_id..."
+    echo "Stopping container $container_id..."
     docker stop $container_id
     rm -f docker.pid
 fi
