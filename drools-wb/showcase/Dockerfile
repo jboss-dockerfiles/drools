@@ -1,9 +1,9 @@
 #####################################################################################
-# Dockerfile that provides the image for JBoss Drools Workbench 7.6.0.Final Showcase
+# Dockerfile that provides the image for JBoss Drools Workbench 7.7.0.Final Showcase
 #####################################################################################
 
 ####### BASE ############
-FROM jboss/drools-workbench:7.6.0.Final
+FROM jboss/drools-workbench:7.7.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
@@ -11,7 +11,7 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 ####### ENVIRONMENT ############
 # Use demo and examples by default in this showcase image (internet connection required).
 ENV KIE_SERVER_PROFILE standalone-full-drools
-ENV JAVA_OPTS -Xms256m -Xmx512m -Djava.net.preferIPv4Stack=true
+ENV JAVA_OPTS -Xms256m -Xmx1024m -Djava.net.preferIPv4Stack=true
 
 ####### Drools Workbench CUSTOM CONFIGURATION ############
 ADD etc/standalone-full-drools.xml $JBOSS_HOME/standalone/configuration/standalone-full-drools.xml

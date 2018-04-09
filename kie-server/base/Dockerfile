@@ -1,9 +1,9 @@
 #################################################################################
-# Dockerfile that provides the image for JBoss KIE Server 7.6.0.Final
+# Dockerfile that provides the image for JBoss KIE Server 7.7.0.Final
 #################################################################################
 
 ####### BASE ############
-FROM jboss/wildfly:10.1.0.Final
+FROM jboss/wildfly:11.0.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
@@ -14,7 +14,7 @@ ENV KIE_REPOSITORY https://repository.jboss.org/nexus/content/groups/public-jbos
 ENV KIE_VERSION 7.6.0.Final
 ENV KIE_CLASSIFIER ee7
 ENV KIE_CONTEXT_PATH kie-server
-ENV JAVA_OPTS -Xms256m -Xmx512m -Djava.net.preferIPv4Stack=true
+ENV JAVA_OPTS -Xms256m -Xmx1024m -Djava.net.preferIPv4Stack=true
 
 ###### SWITCH USER root ######
 USER root

@@ -1,9 +1,9 @@
 #################################################################################
-# Dockerfile that provides the image for JBoss KIE Server 7.6.0.Final Showcase
+# Dockerfile that provides the image for JBoss KIE Server 7.7.0.Final Showcase
 #################################################################################
 
 ####### BASE ############
-FROM jboss/kie-server:7.6.0.Final
+FROM jboss/kie-server:7.7.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
@@ -19,7 +19,7 @@ ENV KIE_SERVER_CONTROLLER_PWD admin
 ENV KIE_MAVEN_REPO http://localhost:8080/kie-wb/maven2
 ENV KIE_MAVEN_REPO_USER admin
 ENV KIE_MAVEN_REPO_PASSWORD admin
-ENV JAVA_OPTS -Xms256m -Xmx512m -Djava.net.preferIPv4Stack=true
+ENV JAVA_OPTS -Xms256m -Xmx1024m -Djava.net.preferIPv4Stack=true
 
 ####### Drools KIE Server CUSTOM CONFIGURATION ############
 RUN mkdir -p $HOME/.m2

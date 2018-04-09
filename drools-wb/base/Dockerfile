@@ -1,9 +1,9 @@
 ###########################################################################
-# Dockerfile that provides the image for JBoss Drools Workbench 7.6.0.Final
+# Dockerfile that provides the image for JBoss Drools Workbench 7.7.0.Final
 ###########################################################################
 
 ####### BASE ############
-FROM jboss/wildfly:10.1.0.Final
+FROM jboss/wildfly:11.0.0.Final
 
 ####### MAINTAINER ############
 MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
@@ -11,11 +11,11 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 ####### ENVIRONMENT ############
 ENV JBOSS_BIND_ADDRESS 0.0.0.0
 ENV KIE_REPOSITORY https://repository.jboss.org/nexus/content/groups/public-jboss
-ENV KIE_VERSION 7.6.0.Final
-ENV KIE_CLASSIFIER wildfly10
+ENV KIE_VERSION 7.7.0.Final
+ENV KIE_CLASSIFIER wildfly11
 ENV KIE_CONTEXT_PATH drools-wb
 ENV KIE_SERVER_PROFILE standalone-full
-ENV JAVA_OPTS -Xms256m -Xmx512m -Djava.net.preferIPv4Stack=true
+ENV JAVA_OPTS -Xms256m -Xmx1024m -Djava.net.preferIPv4Stack=true
 
 ####### DROOLS-WB ############
 RUN curl -o $HOME/$KIE_CONTEXT_PATH.war $KIE_REPOSITORY/org/kie/kie-drools-wb/$KIE_VERSION/kie-drools-wb-$KIE_VERSION-$KIE_CLASSIFIER.war && \
