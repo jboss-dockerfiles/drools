@@ -13,6 +13,7 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 ENV KIE_SERVER_LOCATION http://localhost:8080/kie-server/services/rest/server
 ENV KIE_SERVER_USER kieserver
 ENV KIE_SERVER_PWD kieserver1!
+# When using this image against jboss/jbpm-workbench-showcase use /jbpm-console/rest/controller
 # ENV KIE_SERVER_CONTROLLER http://localhost:8080/kie-wb/rest/controller
 ENV KIE_SERVER_CONTROLLER_USER admin
 ENV KIE_SERVER_CONTROLLER_PWD admin
