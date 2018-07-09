@@ -3,7 +3,7 @@ Drools KIE Server Docker image
 
 Drools KIE Server [Docker](http://docker.io/) image.
 
-More information of KIE Server available at [JBoss documentation](https://docs.jboss.org/drools/release/7.7.0.Final/drools-docs/html_single/#_ch.kie.server).
+More information of KIE Server available at [JBoss documentation](https://docs.jboss.org/drools/release/7.8.0.Final/drools-docs/html_single/#_ch.kie.server).
 
 Table of contents
 ------------------
@@ -23,7 +23,7 @@ Introduction
 The image contains:    
            
 * JBoss Wildfly 11.0.0.Final
-* JBoss Drools KIE Server 7.7.0.Final
+* JBoss Drools KIE Server 7.8.0.Final
 
 This image provides the Drools KIE Server. It's intended to be extended so you can add your custom configurations.                 
 
@@ -33,7 +33,7 @@ Usage
 -----
 
 The JBoss KIE Execution server is intended to be used as a standalone runtime execution environment managed by a KIE Drools Workbench or a jBPM Workbench application that acts as a controller.              
-This image does not provides any default configuration, so please to use the execution server it's recommended to read the documentation at [Installing the KIE Server](https://docs.jboss.org/drools/release/7.7.0.Final/drools-docs/html_single/#_installing_the_kie_server). You can check an example of this configuration at the [KIE Server Showcase](https://registry.hub.docker.com/u/jboss/kie-server-showcase/) Docker image too.
+This image does not provides any default configuration, so please to use the execution server it's recommended to read the documentation at [Installing the KIE Server](https://docs.jboss.org/drools/release/7.8.0.Final/drools-docs/html_single/#_installing_the_kie_server). You can check an example of this configuration at the [KIE Server Showcase](https://registry.hub.docker.com/u/jboss/kie-server-showcase/) Docker image too.
 
 To run a container:
     
@@ -154,7 +154,7 @@ Notes
 -----
 
 * The context path for Drools KIE Server application services is `kie-server`
-* Drools KIE Server version is `7.7.0.Final`
+* Drools KIE Server version is `7.8.0.Final`
 * Drools KIE Server requires running JBoss Wildfly 11.0.0.Final using the `full` server profile
 * No users or roles are configured by default               
 * No support for clustering                
@@ -164,7 +164,7 @@ Notes
 Release notes
 --------------
 
-**7.7.0.Final**
+**7.8.0.Final**
 
-* See release notes for [KIE-server](https://docs.jboss.org/drools/release/7.7.0.Final/drools-docs/html_single/index.html#_ch.kie.server)
+* See release notes for [KIE-server](https://docs.jboss.org/drools/release/7.8.0.Final/drools-docs/html_single/index.html#_ch.kie.server)
 
