@@ -16,8 +16,6 @@ IMAGE_NAME="jboss/kie-server"
 IMAGE_TAG="latest"
 
 
-
-
 function usage
 {
      echo "usage: start.sh [ [-c <container_name> ] ] [-h]]"
