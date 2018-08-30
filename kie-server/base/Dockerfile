@@ -14,7 +14,7 @@ ENV KIE_REPOSITORY https://repository.jboss.org/nexus/content/groups/public-jbos
 ENV KIE_VERSION 7.10.0.Final
 ENV KIE_CLASSIFIER ee7
 ENV KIE_CONTEXT_PATH kie-server
-ENV JAVA_OPTS -Xms256m -Xmx1024m -Djava.net.preferIPv4Stack=true
+ENV JAVA_OPTS -Xms256m -Xmx1024m -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8
 
 ###### SWITCH USER root ######
 USER root
