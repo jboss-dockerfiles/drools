@@ -11,7 +11,7 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 ####### ENVIRONMENT ############
 # Use demo and examples by default in this showcase image (internet connection required).
 ENV KIE_SERVER_PROFILE standalone-full-drools
-ENV JAVA_OPTS -Xms256m -Xmx2048m -Djava.net.preferIPv4Stack=true
+ENV JAVA_OPTS -Xms256m -Xmx2048m -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8
 
 ####### Drools Workbench CUSTOM CONFIGURATION ############
 ADD etc/standalone-full-drools.xml $JBOSS_HOME/standalone/configuration/standalone-full-drools.xml

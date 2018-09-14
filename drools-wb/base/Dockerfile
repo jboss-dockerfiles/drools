@@ -15,7 +15,7 @@ ENV KIE_VERSION 7.10.0.Final
 ENV KIE_CLASSIFIER wildfly11
 ENV KIE_CONTEXT_PATH drools-wb
 ENV KIE_SERVER_PROFILE standalone-full
-ENV JAVA_OPTS -Xms256m -Xmx2048m -Djava.net.preferIPv4Stack=true
+ENV JAVA_OPTS -Xms256m -Xmx2048m -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8
 
 ####### DROOLS-WB ############
 RUN curl -o $HOME/$KIE_CONTEXT_PATH.war $KIE_REPOSITORY/org/kie/kie-drools-wb/$KIE_VERSION/kie-drools-wb-$KIE_VERSION-$KIE_CLASSIFIER.war && \
