@@ -24,7 +24,7 @@ Introduction
 The image contains:     
           
 * JBoss Wildfly 11.0.0.Final
-* JBoss Drools Workbench 7.10.0.Final
+* JBoss Drools Workbench 7.11.0.Final
 
 This image inherits from `jboss/drools-workbench:latest` and provides some additional configurations:                   
 
@@ -190,7 +190,7 @@ Notes
 -----
 
 * The context path for Drools Workbench web application is `drools-wb`                  
-* Drools Workbench version is `7.10.0.Final`
+* Drools Workbench version is `7.11.0.Final`
 * Drools Workbench requires running JBoss Wildfly 11.0.0.Final using the `full` server profile
 * Examples and demos are always available, also when not connected to internet           
 * No support for clustering                
@@ -202,5 +202,5 @@ Notes
 Release notes
 --------------
 
-**7.10.0.Final**
-* See release notes for [Drools](https://docs.jboss.org/drools/release/7.10.0.Final/drools-docs/html_single/#_droolsreleasenoteschapter)
+**7.11.0.Final**
+* See release notes for [Drools](https://docs.jboss.org/drools/release/7.11.0.Final/drools-docs/html_single/#_droolsreleasenoteschapter)
