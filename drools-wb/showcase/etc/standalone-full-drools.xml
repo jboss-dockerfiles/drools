@@ -2,7 +2,7 @@
 <!--
   CUSTOM MODIFCATIONS FOR Drools Workbench
   ***************************************
-  - THIS FILE IS COPIED FROM DIRECTORY "wildfly-10.1.0.Final/standalone/configuration/standalone-full.xml" from "wildfly-10.1.0.Final.zip"
+  - THIS FILE IS COPIED FROM DIRECTORY "wildfly-14.0.1.Final/standalone/configuration/standalone-full.xml" from "wildfly-14.0.1.Final.zip"
   - THE CUSTOM MODIFICATIONS ON THIS FILE IN THIS IMAGE ARE MARKED WITH THE COMMENT'S TEXT "Drools Workbench"
 -->
 
