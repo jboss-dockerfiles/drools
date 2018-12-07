@@ -1,5 +1,5 @@
 ###########################################################################
-# Dockerfile that provides the image for JBoss Drools Workbench 7.14.0.Final
+# Dockerfile that provides the image for JBoss Drools Workbench 7.15.0.Final
 ###########################################################################
 
 ####### BASE ############
@@ -11,14 +11,14 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 ####### ENVIRONMENT ############
 ENV JBOSS_BIND_ADDRESS 0.0.0.0
 ENV KIE_REPOSITORY https://repository.jboss.org/nexus/content/groups/public-jboss
-ENV KIE_VERSION 7.14.0.Final
+ENV KIE_VERSION 7.15.0.Final
 ENV KIE_CLASSIFIER wildfly14
 ENV KIE_CONTEXT_PATH drools-wb
 ENV KIE_SERVER_PROFILE standalone-full
 ENV JAVA_OPTS -Xms256m -Xmx2048m -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8
 
 ####### DROOLS-WB ############
-RUN curl -o $HOME/$KIE_CONTEXT_PATH.war $KIE_REPOSITORY/org/kie/kie-drools-wb/$KIE_VERSION/kie-drools-wb-$KIE_VERSION-$KIE_CLASSIFIER.war && \
+RUN curl -o $HOME/$KIE_CONTEXT_PATH.war $KIE_REPOSITORY/org/kie/business-central/$KIE_VERSION/business-central-$KIE_VERSION-$KIE_CLASSIFIER.war && \
 unzip -q $HOME/$KIE_CONTEXT_PATH.war -d $JBOSS_HOME/standalone/deployments/$KIE_CONTEXT_PATH.war &&  \
 touch $JBOSS_HOME/standalone/deployments/$KIE_CONTEXT_PATH.war.dodeploy &&  \
 rm -rf $HOME/$KIE_CONTEXT_PATH.war

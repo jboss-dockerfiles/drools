@@ -1,5 +1,5 @@
 #################################################################################
-# Dockerfile that provides the image for JBoss KIE Server 7.14.0.Final
+# Dockerfile that provides the image for JBoss KIE Server 7.15.0.Final
 #################################################################################
 
 ####### BASE ############
@@ -11,7 +11,7 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 ####### ENVIRONMENT ############
 ENV JBOSS_BIND_ADDRESS 0.0.0.0
 ENV KIE_REPOSITORY https://repository.jboss.org/nexus/content/groups/public-jboss
-ENV KIE_VERSION 7.14.0.Final
+ENV KIE_VERSION 7.15.0.Final
 ENV KIE_CLASSIFIER ee7
 ENV KIE_CONTEXT_PATH kie-server
 ENV JAVA_OPTS -Xms256m -Xmx1024m -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8
