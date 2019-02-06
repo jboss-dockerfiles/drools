@@ -22,7 +22,7 @@ Introduction
 The image contains:       
         
 * JBoss Wildfly 14.0.1.Final
-* JBoss Drools Workbench 7.15.0.Final
+* JBoss Drools Workbench 7.17.0.Final
 
 This image provides the JBoss Drools Workbench web application. It's intended to be extended so you can add your custom configurations.                                  
 
@@ -38,7 +38,7 @@ To run a container:
 
 Once container starts, you can navigate into the Drools Workbench at:              
 
-    http://localhost:8080/drools-wb
+    http://localhost:8080/business-central
 
 Users and roles
 ----------------
@@ -207,7 +207,7 @@ You can then noodle around the container and run stuff & look at files etc.
 Troubleshoot
 ------------
 
-If the application can't be accessed via browser (http://localhost:8080/drools-wb) please run the container in [host network mode](https://docs.docker.com/engine/reference/run/#network-settings). It seems that latest docker versions have some restrictions on the networking side. Using an older daemon version this does not happen.
+If the application can't be accessed via browser (http://localhost:8080/business-central) please run the container in [host network mode](https://docs.docker.com/engine/reference/run/#network-settings). It seems that latest docker versions have some restrictions on the networking side. Using an older daemon version this does not happen.
 Try:
 
     docker run .... --network="host .."
@@ -215,8 +215,8 @@ Try:
 Notes
 -----
 
-* The context path for Drools Workbench web application is `drools-wb`                  
-* Drools Workbench version is `7.15.0.Final`
+* The context path for Drools Workbench web application is `business-central`
+* Drools Workbench version is `7.17.0.Final`
 * Drools Workbench requires running JBoss Wildfly 14.0.1.Final using the `full` server profile
 * No users or roles are configured by default               
 * No support for clustering                
@@ -228,5 +228,5 @@ Notes
 Release notes
 --------------
 
-**7.15.0.Final**
-* See release notes for [Drools](https://docs.jboss.org/drools/release/7.15.0.Final/drools-docs/html_single/#_droolsreleasenoteschapter)
+**7.17.0.Final**
+* See release notes for [Drools](https://docs.jboss.org/drools/release/7.17.0.Final/drools-docs/html_single/#_droolsreleasenoteschapter)

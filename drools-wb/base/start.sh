@@ -55,6 +55,6 @@ echo $image_drools_workbench > docker.pid
 echo ""
 echo "Server starting in $ip_drools_workbench"
 echo "You can access the server root context in http://$ip_drools_workbench:8080"
-echo "JBoss Drools Workbench is running at http://$ip_drools_workbench:8080/drools-wb"
+echo "JBoss Drools Workbench is running at http://$ip_drools_workbench:8080/business-central"
 
 exit 0
