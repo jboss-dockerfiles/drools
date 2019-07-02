@@ -6,7 +6,7 @@
 FROM jboss/kie-server:7.18.0.Final
 
 ####### MAINTAINER ############
-MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
+MAINTAINER "Pat"
 
 ####### ENVIRONMENT ############
 # ENV KIE_SERVER_ID kie-server
@@ -31,7 +31,7 @@ ADD etc/start_kie-server.sh $JBOSS_HOME/bin/start_kie-server.sh
 ADD etc/settings.xml $JBOSS_HOME/../.m2/settings.xml
 
 # Added files are chowned to root user, change it to the jboss one.
-USER root
+USER 1001
 RUN chown jboss:jboss $JBOSS_HOME/standalone/configuration/standalone-full-kie-server.xml && \
 chown jboss:jboss $JBOSS_HOME/standalone/configuration/kie-server-users.properties && \
 chown jboss:jboss $JBOSS_HOME/standalone/configuration/kie-server-roles.properties && \
@@ -40,8 +40,11 @@ chown jboss:jboss $JBOSS_HOME/../.m2/settings.xml
 
 ####### JBOSS USER ############
 # Switchback to jboss user
-USER jboss
+USER 1001
 
 ####### RUNNING KIE-SERVER ############
 WORKDIR $JBOSS_HOME/bin/
 CMD ["./start_kie-server.sh"]
+
+USER 1001
+ENTRYPOINT ["/tmp/docker_run.sh"]
