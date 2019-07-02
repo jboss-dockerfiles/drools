@@ -24,13 +24,13 @@ touch $JBOSS_HOME/standalone/deployments/$KIE_CONTEXT_PATH.war.dodeploy &&  \
 rm -rf $HOME/$KIE_CONTEXT_PATH.war
 
 ####### SCRIPTS ############
-USER root
+USER 1001
 ADD etc/start_drools-wb.sh $JBOSS_HOME/bin/start_drools-wb.sh
 RUN chown jboss:jboss $JBOSS_HOME/bin/start_drools-wb.sh
 
 ####### CUSTOM JBOSS USER ############
 # Switchback to jboss user
-USER jboss
+USER 1002
 
 
 ####### EXPOSE INTERNAL JBPM GIT PORT ############
