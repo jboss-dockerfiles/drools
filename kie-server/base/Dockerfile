@@ -23,7 +23,7 @@ USER 1001
 RUN yum install -y net-tools
 
 ##### SWITCH BACK TO jboss ####
-USER 1002
+# USER 1002
 ####### KIE-SERVER ############
 RUN curl -o $HOME/$KIE_CONTEXT_PATH.war $KIE_REPOSITORY/org/kie/server/kie-server/$KIE_VERSION/kie-server-$KIE_VERSION-$KIE_CLASSIFIER.war && \
 unzip -q $HOME/$KIE_CONTEXT_PATH.war -d $JBOSS_HOME/standalone/deployments/$KIE_CONTEXT_PATH.war &&  \
@@ -37,7 +37,7 @@ RUN chown jboss:jboss $JBOSS_HOME/bin/start_kie-wb.sh
 
 ####### CUSTOM JBOSS USER ############
 # Switchback to jboss user
-USER 1002
+# USER 1002
 
 ####### RUNNING DROOLS-WB ############
 WORKDIR $JBOSS_HOME/bin/
