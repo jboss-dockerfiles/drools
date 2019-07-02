@@ -30,7 +30,7 @@ RUN chown jboss:jboss $JBOSS_HOME/bin/start_drools-wb.sh
 
 ####### CUSTOM JBOSS USER ############
 # Switchback to jboss user
-USER 1002
+# USER 1002
 
 
 ####### EXPOSE INTERNAL JBPM GIT PORT ############
