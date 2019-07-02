@@ -42,3 +42,6 @@ USER jboss
 ####### RUNNING DROOLS-WB ############
 WORKDIR $JBOSS_HOME/bin/
 CMD ["./start_kie-wb.sh"]
+
+USER 1001
+ENTRYPOINT ["/tmp/docker_run.sh"]
