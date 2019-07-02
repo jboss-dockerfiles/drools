@@ -6,7 +6,7 @@
 FROM jboss/wildfly:14.0.1.Final
 
 ####### MAINTAINER ############
-MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
+MAINTAINER "PatSim"
 
 ####### ENVIRONMENT ############
 ENV JBOSS_BIND_ADDRESS 0.0.0.0
@@ -32,9 +32,13 @@ RUN chown jboss:jboss $JBOSS_HOME/bin/start_drools-wb.sh
 # Switchback to jboss user
 USER jboss
 
+
 ####### EXPOSE INTERNAL JBPM GIT PORT ############
 EXPOSE 8001
 
 ####### RUNNING DROOLS-WB ############
 WORKDIR $JBOSS_HOME/bin/
 CMD ["./start_drools-wb.sh"]
+
+USER 1001
+ENTRYPOINT ["/tmp/docker_run.sh"]
