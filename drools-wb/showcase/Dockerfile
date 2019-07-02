@@ -6,7 +6,7 @@
 FROM jboss/drools-workbench:7.18.0.Final
 
 ####### MAINTAINER ############
-MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
+MAINTAINER "Pat"
 
 ####### ENVIRONMENT ############
 # Use demo and examples by default in this showcase image (internet connection required).
@@ -19,14 +19,17 @@ ADD etc/drools-users.properties $JBOSS_HOME/standalone/configuration/drools-user
 ADD etc/drools-roles.properties $JBOSS_HOME/standalone/configuration/drools-roles.properties
 
 # Added files are chowned to root user, change it to the jboss one.
-USER root
+USER 1001
 RUN chown jboss:jboss $JBOSS_HOME/standalone/configuration/standalone-full-drools.xml && \
 chown jboss:jboss $JBOSS_HOME/standalone/configuration/drools-users.properties && \
 chown jboss:jboss $JBOSS_HOME/standalone/configuration/drools-roles.properties
 
 # Switchback to jboss user
-USER jboss
+USER 1001
 
 ####### RUNNING DROOLS-WB ############
 WORKDIR $JBOSS_HOME/bin/
 CMD ["./start_drools-wb.sh"]
+
+USER 1001
+ENTRYPOINT ["/tmp/docker_run.sh"]
