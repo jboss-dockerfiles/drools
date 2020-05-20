@@ -1,5 +1,5 @@
 ###########################################################################
-# Dockerfile that provides the image for JBoss Drools Workbench 7.18.0.Final
+# Dockerfile that provides the image for JBoss Drools Workbench 7.37.0.Final
 ###########################################################################
 
 ####### BASE ############
@@ -11,7 +11,7 @@ MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
 ####### ENVIRONMENT ############
 ENV JBOSS_BIND_ADDRESS 0.0.0.0
 ENV KIE_REPOSITORY https://repository.jboss.org/nexus/content/groups/public-jboss
-ENV KIE_VERSION 7.18.0.Final
+ENV KIE_VERSION 7.37.0.Final
 ENV KIE_CLASSIFIER wildfly14
 ENV KIE_CONTEXT_PATH business-central
 ENV KIE_SERVER_PROFILE standalone-full
