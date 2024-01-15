@@ -102,21 +102,39 @@ In order to extend this image, your Dockerfile must inherit from:
 
 These are the steps to create your custom users and roles by using realm files in Widlfly:                  
 
-1.- Create a realm properties file for users and deploy it in `/opt/jboss/wildfly/standalone/configuration`:                 
+1.- Preparing user and its password
+
+Run for the first time the kie-server container.
+
+        docker run --rm -ti jboss/kie-server /bin/bash
+
+Then, run the bash script `./add-user.sh` located at `/opt/jboss/wildfly/bin/` to create a user and follow the instruction.
+
+After the user creation is done, you can see the user and its password in `/opt/jboss/wildfly/standalone/configuration/application-users.properties`.
+Go to the last line to see the generated user and password. For example, we use `kieserver` as user and `kieserver1!` as the password.
+
+        application-users.properties
+        ---------------------
+        ...
+        kieserver=16c6511893651c9b4b57e0c027a96075
+
+Copy the information above and stop the running kie-server container.
+
+2.- Create a realm properties file for users and deploy it in `/opt/jboss/wildfly/standalone/configuration`:                 
  
         kie-server-users.properties
         ---------------------
-        kieserver=kieserver1!
+        kieserver=16c6511893651c9b4b57e0c027a96075 # copy the password from previous step
         
-2.- Create a realm properties file for roles and deploy it in `/opt/jboss/wildfly/standalone/configuration`:                 
+3.- Create a realm properties file for roles and deploy it in `/opt/jboss/wildfly/standalone/configuration`:                 
  
         kie-server-roles.properties
         ---------------------
         kieserver=kie-server
 
-3.- Modify your `standalone-full.xml` in order to:                
+4.- Modify your `standalone-full.xml` in order to:                
         
-3.1 - In the `management` section, modify default the security-realm for the `ApplicationRealm` as:                   
+4.1 - In the `management` section, modify default the security-realm for the `ApplicationRealm` as:                   
 
         <security-realm name="ApplicationRealm">
               <authentication>
@@ -128,7 +146,7 @@ These are the steps to create your custom users and roles by using realm files i
               </authorization>
           </security-realm>
           
-3.2 - In the `security` subsystem, modify default the `other` security-domain for as:                         
+4.2 - In the `security` subsystem, modify default the `other` security-domain for as:                         
 
         <security-domain name="other" cache-type="default">
           <authentication>
